@@ -16,6 +16,17 @@ async function main() {
   const browser = await launchBrowser();
   const page = await browser.newPage();
 
+  await page.goto('https://www.facebook.com/', {
+    waitUntil: 'domcontentloaded',
+  });
+
+  console.log('\n⏸ Залогіньтесь у Facebook у вікні браузера.');
+  console.log('Коли будете готові — натисніть Enter у цьому терміналі...');
+
+  await waitForEnter();
+
+  console.log('▶️ Продовжую виконання скрипта...\n');
+
   // Отримуємо всі доступні зображення
   const images = getImages();
 
@@ -238,9 +249,20 @@ console.log(
   await browser.close();
 }
 
+
+function waitForEnter(): Promise<void> {
+  return new Promise((resolve) => {
+    process.stdin.resume();
+    process.stdin.once('data', () => {
+      process.stdin.pause();
+      resolve();
+    });
+  });
+}
+
 main().catch((error) => {
   console.error('\nFatal error:');
   console.error(error);
-
   process.exit(1);
 });
+
