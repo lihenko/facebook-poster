@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "tsx src/index.ts",
+    "join": "tsx src/join-groups.ts",
     "build": "tsc",
     "start": "node dist/index.js"
   },
